@@ -68,9 +68,8 @@ Written in TypeScript, compiled to ES5 for Synchronet's SpiderMonkey 1.8.5
 engine, and registered as an external message editor.
 
 **Synchronet only, by design.** Multi-platform support (Mystic etc.) was
-evaluated in [RESEARCH.md](RESEARCH.md) and rejected as a maintainability
-burden. The host boundary is still kept narrow (`src/host/`) so the core
-stays testable.
+evaluated and rejected as a maintainability burden. The host boundary is
+still kept narrow (`src/host/`) so the core stays testable.
 
 ## Full feature rundown
 
@@ -150,11 +149,17 @@ stays testable.
   hotspots); complete keyboard-only fallback.
 
 Free-form text placement is covered by the Draw-mode Type tool (as fixed art);
-Text mode covers reflowing prose in the body and boxes. Not yet implemented
-(future slices): block selection + copy/paste, half-block shape fidelity,
-re-editable/reflowable free-floating text *flows* (semantic, as opposed to the
-Type tool's baked art), native project drafts, standalone ANSI/BIN/SAUCE
-files. See [ROADMAP.md](ROADMAP.md).
+Text mode covers reflowing prose in the body and boxes.
+
+## Roadmap
+
+- Rework the TheDraw font word processor away from its "stamp" session
+  model: typed font text should land on the canvas directly (no
+  stamp/keep/discard prompt), backed by re-editable semantic font flows.
+- Keyboard (shift-arrow) text selection.
+- Half-block shapes merging with half-blocks already on the canvas
+  (`▄` over `▀` becoming `█`).
+- Native project drafts and standalone ANSI/BIN/SAUCE export.
 
 ## Layout
 
@@ -204,9 +209,6 @@ not `^S`/`^P`), Abort is `^A` (not `^E`/`^Q`), and Help is `^G` (not `^H`).
 For muscle memory, `^S` and `^Q` are still accepted as secondary Save/Abort
 aliases where flow control permits — but `^O`/`^A` and the menu are the
 guaranteed paths.
-
-Planned features (selection + copy/paste, fill, and box/circle/line shape
-tools) are tracked in [ROADMAP.md](ROADMAP.md).
 
 ## Building
 
@@ -304,22 +306,3 @@ selected it fall back to the system default editor.
   drop-file parsers, and the diff renderer.
 - `npm run smoke` — runs the pure core on the real SpiderMonkey engine via
   `jsexec`.
-- Manual acceptance cases live in the compliance matrix of
-  [SYNCHRONET_CONTRACT.md](SYNCHRONET_CONTRACT.md).
-
-## Planning documents
-
-| Artifact | Purpose |
-| --- | --- |
-| [RESEARCH.md](RESEARCH.md) | Findings from Synchronet, FSEditor, SlyEdit, the resource editor, and textmode formats |
-| [SYNCHRONET_CONTRACT.md](SYNCHRONET_CONTRACT.md) | Launch, drop-file, result-file, text, color, and encoding contract |
-| [DESIGN.md](DESIGN.md) | Document model, editing modes, UI, adapters, codec boundaries |
-| [PLAN.md](PLAN.md) | Gated implementation plan and future slices |
-| [HANDOFF.md](HANDOFF.md) | Resume point for another session |
-
-Design deviations from the draft docs, decided for v1 with the sysop:
-GUI-style persistent button chrome instead of purely contextual overlays;
-art cells anchor to absolute document rows; a single text region (one active
-box) rather than the full multi-region model — the message flow reflows into
-whichever box you click into, or the full width when you leave it; no native
-project format yet — the flattened message is the only output.
