@@ -244,13 +244,38 @@ only needed if you want to modify and rebuild**, not to run it.
    git clone https://github.com/hmderdoc/HERMedIT.git /sbbs/xtrn/hermedit
    ```
 
-2. **Register the editor.** Either through SCFG (`External Programs ->
-   External Editors`) or by adding a section to `ctrl/xtrn.ini` (adjust the
-   `cmd` path to where you cloned):
+2. **Register the editor in SCFG.** Run `scfg`, go to
+   `External Programs -> Message Editors`, add a new editor, and set:
+
+   | SCFG field | Value |
+   | --- | --- |
+   | Name | `HERMedIT` |
+   | Internal Code | `HERMEDIT` |
+   | Command Line | `?/sbbs/xtrn/hermedit/future_edit.js %f` (adjust to your clone path) |
+   | Access Requirements | `ANSI AND COLS 80` |
+   | Record Terminal Width | `Yes` |
+   | Word-wrap Quoted Text | `Yes, for terminal width` |
+   | Retain Ctrl-A Codes in Quoted Text | `No` |
+   | Automatically Quoted Text | `None` |
+   | Editor Information Files | `QuickBBS MSGINF/MSGTMP` |
+   | Handle Soft CRs | `Retain` |
+   | Support UTF-8 Encoding | `Yes` |
+   | BBS Drop File Type | `None` |
+
+   Why these: `Automatically Quoted Text: None` starts replies with a clean
+   body — the original stays in `QUOTES.TXT` and is inserted deliberately
+   through the quote picker (`^R`), never as a surprise pre-fill. Ctrl-A
+   retention off means quoted text arrives color-stripped. `Handle Soft
+   CRs: Retain` because the soft-CR byte 0x8d is a valid CP437 art glyph.
+   QuickBBS `MSGINF` declares the session charset, which makes UTF-8
+   sessions work.
+
+   <details><summary>Equivalent <code>ctrl/xtrn.ini</code> section (what
+   SCFG writes; for reference or scripted installs)</summary>
 
    ```ini
    [editor:HERMEDIT]
-       name=HERMedIT (text + ANSI art)
+       name=HERMedIT
        cmd=?/sbbs/xtrn/hermedit/future_edit.js %f
        settings=0xe02c00
        ars=ANSI AND COLS 80
@@ -258,28 +283,19 @@ only needed if you want to modify and rebuild**, not to run it.
        soft_cr=3
        quotewrap_cols=0
    ```
+   </details>
 
-   `settings` = `QUICKBBS | EXPANDLF | QUOTENONE | QUOTEWRAP | SAVECOLUMNS |
-   XTRN_UTF8` (0xe02c00): QuickBBS-style `MSGINF` (declares the session
-   charset on line 8), terminal-width metadata saved, UTF-8 sessions
-   allowed. `QUOTENONE` (not `QUOTEALL`) so a reply starts with a clean
-   body — the original message stays in `QUOTES.TXT` and is inserted
-   explicitly through the quote picker, never as a surprise pre-fill.
-   `KEEP_CTRL_A` is deliberately off so quote text arrives color-stripped.
-   `soft_cr=3` (retain) because byte 0x8d is a valid CP437 art glyph.
-
-3. **Recycle the terminal server** (or wait for a config reload) so the new
-   `xtrn.ini` section is picked up.
+3. **Recycle the terminal server** (SCFG offers this on exit; a config
+   reload also picks it up).
 
 4. **Select it**: users pick the editor in their user settings / defaults
    menu; sysops can also set it per-user in uedit.
 
 **Updating**: `git pull` in the install dir — the script is compiled fresh
 on every editor launch, so no recycle is needed for code updates (only for
-`xtrn.ini` changes). **Rolling back**: remove or comment out the
-`[editor:HERMEDIT]` section (keep a backup copy of `xtrn.ini` before
-editing, as with any config change) and recycle; users who had selected it
-fall back to the system default editor.
+configuration changes). **Rolling back**: delete the editor in SCFG
+(`External Programs -> Message Editors`) and recycle; users who had
+selected it fall back to the system default editor.
 
 ## Testing
 
