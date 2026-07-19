@@ -1,0 +1,9 @@
+# toolchain output (rebuildable from src/; the SHIPPED bundle future_edit.js
+# at the repo root IS committed so installs don't need Node)
+node_modules/
+build/
+dist/
+
+# editor/OS noise
+.DS_Store
+*.swp
