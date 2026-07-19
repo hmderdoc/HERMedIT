@@ -2,7 +2,7 @@
  * HERMedIT — Synchronet external message editor entry point.
  *
  * Registered in ctrl/xtrn.ini as:
- *   cmd=?/sbbs/xtrn/future_edit/future_edit.js %f
+ *   cmd=?/sbbs/xtrn/future_edit/HERMedIT.js %f
  *
  * Lifecycle (SYNCHRONET_CONTRACT.md): read drop files and %f, run the
  * editor, then either write the body + RESULT.ED and exit 0, or exit 1

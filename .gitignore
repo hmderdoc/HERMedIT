@@ -1,8 +1,11 @@
-# toolchain output (rebuildable from src/; the SHIPPED bundle future_edit.js
+# toolchain output (rebuildable from src/; the SHIPPED bundle HERMedIT.js
 # at the repo root IS committed so installs don't need Node)
 node_modules/
 build/
 dist/
+
+# legacy filename compatibility symlink on live boards
+/future_edit.js
 
 # editor/OS noise
 .DS_Store

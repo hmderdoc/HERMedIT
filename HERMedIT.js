@@ -3662,7 +3662,7 @@
         }
         putCtx("Subj: ", theme.titleDim);
         putCtx(this.subject.length > 0 ? this.subject : "(none)", theme.titleValue);
-        var stamp = true ? "2026-07-19 14:25" : "dev";
+        var stamp = true ? "2026-07-19 14:38" : "dev";
         if (tx + stamp.length + 2 < cols) {
           scr.putStr(cols - stamp.length - 1, 0, stamp, theme.titleDim);
         }
@@ -5594,7 +5594,7 @@
       return 1;
     }
     var caps = initTerminal();
-    log(LOG_INFO, EDITOR_IDENT + " build " + (true ? "2026-07-19 14:25" : "dev") + " starting; terminal " + caps.cols + "x" + caps.rows + (caps.utf8 ? " utf8" : " cp437") + (caps.mouse ? " mouse" : ""));
+    log(LOG_INFO, EDITOR_IDENT + " build " + (true ? "2026-07-19 14:38" : "dev") + " starting; terminal " + caps.cols + "x" + caps.rows + (caps.utf8 ? " utf8" : " cp437") + (caps.mouse ? " mouse" : ""));
     var session = loadSession();
     var exitCode = 1;
     try {

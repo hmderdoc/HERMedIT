@@ -218,7 +218,7 @@ Requires Node (for the toolchain only — the output runs on Synchronet):
 cd /sbbs/repo/xtrn/future_edit
 npm install
 npm run check     # typecheck + vitest (201 tests) + jsexec smoke test
-npm run build     # emits ./future_edit.js (the editor) and dist/smoke_runner.js
+npm run build     # emits ./HERMedIT.js (the editor) and dist/smoke_runner.js
 ```
 
 The two-step build (tsc lowers to ES5, esbuild bundles with an es5 tripwire)
@@ -237,7 +237,7 @@ with `node scripts/build-font-index.mjs [/path/to/tdfonts]`.
 ## Installing on your Synchronet BBS
 
 Nothing exotic here — HERMedIT installs like any Synchronet external message
-editor. The repo ships the prebuilt bundle (`future_edit.js`), so **Node is
+editor. The repo ships the prebuilt bundle (`HERMedIT.js`), so **Node is
 only needed if you want to modify and rebuild**, not to run it.
 
 1. **Get the files onto the board.** Any path works;
@@ -254,7 +254,7 @@ only needed if you want to modify and rebuild**, not to run it.
    | --- | --- |
    | Name | `HERMedIT` |
    | Internal Code | `HERMEDIT` |
-   | Command Line | `?/sbbs/xtrn/hermedit/future_edit.js %f` (adjust to your clone path) |
+   | Command Line | `?/sbbs/xtrn/hermedit/HERMedIT.js %f` (adjust to your clone path) |
    | Access Requirements | `ANSI AND COLS 80` |
    | Record Terminal Width | `Yes` |
    | Word-wrap Quoted Text | `Yes, for terminal width` |
@@ -279,7 +279,7 @@ only needed if you want to modify and rebuild**, not to run it.
    ```ini
    [editor:HERMEDIT]
        name=HERMedIT
-       cmd=?/sbbs/xtrn/hermedit/future_edit.js %f
+       cmd=?/sbbs/xtrn/hermedit/HERMedIT.js %f
        settings=0xe02c00
        ars=ANSI AND COLS 80
        type=0

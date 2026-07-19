@@ -28,11 +28,11 @@ const common = {
 };
 
 // The editor itself: registered in ctrl/xtrn.ini as
-//   cmd=?/sbbs/xtrn/future_edit/future_edit.js %f
+//   cmd=?/sbbs/xtrn/future_edit/HERMedIT.js %f
 await build({
   ...common,
   entryPoints: ['build/main.js'],
-  outfile: 'future_edit.js',
+  outfile: 'HERMedIT.js',
 });
 
 // Headless smoke runner for jsexec (no terminal): exercises the pure core
