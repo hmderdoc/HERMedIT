@@ -5,7 +5,7 @@ import { parseTdf, renderTdf, tdfTypeName, COLOR_FONT } from '../src/core/tdf';
 
 /** Read a bundled .tdf as a binary string (one char per byte). */
 function loadFont(name: string): string {
-  var buf = readFileSync(join(__dirname, '..', 'fonts', 'tdf', name + '.tdf'));
+  var buf = readFileSync(join(__dirname, 'fixtures', 'tdf', name + '.tdf'));
   var s = '';
   for (var i = 0; i < buf.length; i++) s += String.fromCharCode(buf[i]!);
   return s;

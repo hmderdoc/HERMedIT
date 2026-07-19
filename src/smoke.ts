@@ -58,7 +58,10 @@ check('result.ed', buildResultEd('S', 'HERMedIT') === '0\r\nS\r\nHERMedIT\r\n');
 // --- TheDraw font parse + render on the real engine (binary read included) ---
 var fontChecks = 0;
 try {
-  var ff = new File(js.exec_dir + '../fonts/tdf/block.tdf');
+  // Fonts ship with Synchronet (ctrl/tdfonts/); fall back to a local
+  // fonts/tdf/ override dir if the board has one.
+  var ff = new File(system.ctrl_dir + 'tdfonts/block.tdf');
+  if (!file_exists(system.ctrl_dir + 'tdfonts/block.tdf')) ff = new File(js.exec_dir + '../fonts/tdf/block.tdf');
   if (ff.open('rb')) {
     var fdata = ff.read();
     ff.close();

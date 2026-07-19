@@ -7,7 +7,7 @@ import { parseTdf } from '../src/core/tdf';
 import { InputEvent, TerminalCaps } from '../src/host/types';
 
 function loadFont(name: string) {
-  const buf = readFileSync(join(__dirname, '..', 'fonts', 'tdf', name + '.tdf'));
+  const buf = readFileSync(join(__dirname, 'fixtures', 'tdf', name + '.tdf'));
   let s = '';
   for (let i = 0; i < buf.length; i++) s += String.fromCharCode(buf[i]!);
   return parseTdf(s)!;

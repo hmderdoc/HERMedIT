@@ -224,14 +224,16 @@ npm run build     # emits ./future_edit.js (the editor) and dist/smoke_runner.js
 The two-step build (tsc lowers to ES5, esbuild bundles with an es5 tripwire)
 is the same proven pipeline as `/sbbs/mods/fshell_ts`.
 
-### Bundled fonts
+### TheDraw fonts
 
-`fonts/tdf/*.tdf` are the ~1071 TheDraw fonts (copied from `ctrl/tdfonts/`);
-`fonts/tdfont_map.json` is the height map; `fonts/tdfont_index.json` is the
-prebuilt `{name,height,type}` index the picker reads (built by
-`node scripts/build-font-index.mjs`, re-run if the font set changes). The
-editor reads these from `<editor dir>/fonts/` at runtime, so it is
-self-contained.
+The ~1071 `.tdf` font files **ship with Synchronet** (`ctrl/tdfonts/`) — the
+repo doesn't duplicate them. It carries only `fonts/tdfont_index.json`, a
+small prebuilt `{name,height,type}` index the font picker reads (so the
+picker can filter by size/type without parsing a thousand fonts at
+runtime), plus the height map it's built from. At runtime each font loads
+from a local `fonts/tdf/` dir if you create one (per-board overrides),
+falling back to `ctrl/tdfonts/`. If your board's font set differs, rebuild
+the index with `node scripts/build-font-index.mjs [/path/to/tdfonts]`.
 
 ## Installing on your Synchronet BBS
 
