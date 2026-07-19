@@ -15,7 +15,6 @@ import { dirname, join } from 'path';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const fontsDir = join(root, 'fonts');
 const tdfDir = process.argv[2]
-  || (existsSync(join(fontsDir, 'tdf')) ? join(fontsDir, 'tdf') : null)
   || (process.env.SBBS_CTRL ? join(process.env.SBBS_CTRL, 'tdfonts') : '/sbbs/ctrl/tdfonts');
 const map = JSON.parse(readFileSync(join(fontsDir, 'tdfont_map.json'), 'utf8'));
 

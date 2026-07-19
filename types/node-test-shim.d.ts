@@ -7,6 +7,7 @@
 
 declare module 'fs' {
   export function readFileSync(path: string): { readonly length: number;[index: number]: number };
+  export function existsSync(path: string): boolean;
 }
 
 declare module 'path' {
@@ -14,3 +15,4 @@ declare module 'path' {
 }
 
 declare var __dirname: string;
+declare var process: { env: { [key: string]: string | undefined } };

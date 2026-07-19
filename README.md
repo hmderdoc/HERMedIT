@@ -226,14 +226,13 @@ is the same proven pipeline as `/sbbs/mods/fshell_ts`.
 
 ### TheDraw fonts
 
-The ~1071 `.tdf` font files **ship with Synchronet** (`ctrl/tdfonts/`) — the
-repo doesn't duplicate them. It carries only `fonts/tdfont_index.json`, a
-small prebuilt `{name,height,type}` index the font picker reads (so the
-picker can filter by size/type without parsing a thousand fonts at
-runtime), plus the height map it's built from. At runtime each font loads
-from a local `fonts/tdf/` dir if you create one (per-board overrides),
-falling back to `ctrl/tdfonts/`. If your board's font set differs, rebuild
-the index with `node scripts/build-font-index.mjs [/path/to/tdfonts]`.
+The ~1071 `.tdf` font files **ship with Synchronet** (`ctrl/tdfonts/`) and
+are loaded from there at runtime — the repo doesn't redistribute them. It
+carries only `fonts/tdfont_index.json`, a small prebuilt
+`{name,height,type}` index the font picker reads (so it can filter by
+size/type without parsing a thousand fonts at runtime), plus the height
+map it's built from. If your board's font set differs, rebuild the index
+with `node scripts/build-font-index.mjs [/path/to/tdfonts]`.
 
 ## Installing on your Synchronet BBS
 

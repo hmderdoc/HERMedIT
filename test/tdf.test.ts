@@ -1,11 +1,16 @@
-import { describe, it, expect } from 'vitest';
-import { readFileSync } from 'fs';
+import { describe as baseDescribe, it, expect } from 'vitest';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { parseTdf, renderTdf, tdfTypeName, COLOR_FONT } from '../src/core/tdf';
 
-/** Read a bundled .tdf as a binary string (one char per byte). */
+// Fonts ship with Synchronet and are never redistributed: read them from
+// ctrl/tdfonts (SBBS_CTRL overrides). Off-board, this suite skips.
+const TDFONTS = join(process.env.SBBS_CTRL ?? '/sbbs/ctrl', 'tdfonts');
+const describe = baseDescribe.runIf(existsSync(TDFONTS));
+
+/** Read a Synchronet-shipped .tdf as a binary string (one char per byte). */
 function loadFont(name: string): string {
-  var buf = readFileSync(join(__dirname, 'fixtures', 'tdf', name + '.tdf'));
+  var buf = readFileSync(join(TDFONTS, name + '.tdf'));
   var s = '';
   for (var i = 0; i < buf.length; i++) s += String.fromCharCode(buf[i]!);
   return s;

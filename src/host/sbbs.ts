@@ -233,10 +233,9 @@ declare var MOUSE_MODE_BTN: number;
 declare var MOUSE_MODE_EXT: number;
 
 // ---------------------------------------------------------------------------
-// TheDraw fonts. The .tdf files themselves SHIP WITH SYNCHRONET
-// (ctrl/tdfonts/, ~1071 fonts) — the repo carries only the small prebuilt
-// index (fonts/tdfont_index.json). A local fonts/tdf/ dir, if present,
-// overrides per-font (for boards that add/replace fonts).
+// TheDraw fonts. The .tdf files ship with Synchronet (ctrl/tdfonts/, ~1071
+// fonts) and are loaded from there — never redistributed. The repo carries
+// only the small prebuilt picker index (fonts/tdfont_index.json).
 // ---------------------------------------------------------------------------
 
 function fontsDir(): string {
@@ -245,8 +244,7 @@ function fontsDir(): string {
 
 /**
  * FontProvider: the prebuilt index (fonts/tdfont_index.json) names the
- * fonts; each .tdf loads from the local override dir (fonts/tdf/) when
- * present, else from Synchronet's own ctrl/tdfonts/. Parsed fonts are
+ * fonts; each .tdf loads from Synchronet's ctrl/tdfonts/. Parsed fonts are
  * cached. Degrades to an empty list if the index is missing; a font listed
  * in the index but missing on disk loads as null (picker shows it inert).
  */
@@ -273,8 +271,7 @@ export function createSbbsFontProvider(): FontProvider {
     load: function (name: string): TdfFont | null {
       if (Object.prototype.hasOwnProperty.call(cache, name)) return cache[name] as TdfFont | null;
       var safe = String(name).replace(/[^a-zA-Z0-9_\-!#]/g, '');
-      var data = readRaw(fontsDir() + 'tdf/' + safe + '.tdf');
-      if (data === null) data = readRaw(system.ctrl_dir + 'tdfonts/' + safe + '.tdf');
+      var data = readRaw(system.ctrl_dir + 'tdfonts/' + safe + '.tdf');
       var font = data === null ? null : parseTdf(data);
       cache[name] = font;
       return font;

@@ -1,19 +1,24 @@
 import { it, expect } from 'vitest';
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { Controller } from '../src/ui/controller';
 import { Screen } from '../src/ui/screen';
 import { parseTdf } from '../src/core/tdf';
 import { InputEvent, TerminalCaps } from '../src/host/types';
 
+// Fonts ship with Synchronet and are never redistributed: read them from
+// ctrl/tdfonts (SBBS_CTRL overrides). Off-board, these tests skip.
+const TDFONTS = join(process.env.SBBS_CTRL ?? '/sbbs/ctrl', 'tdfonts');
+const hasFonts = existsSync(TDFONTS);
+
 function loadFont(name: string) {
-  const buf = readFileSync(join(__dirname, 'fixtures', 'tdf', name + '.tdf'));
+  const buf = readFileSync(join(TDFONTS, name + '.tdf'));
   let s = '';
   for (let i = 0; i < buf.length; i++) s += String.fromCharCode(buf[i]!);
   return parseTdf(s)!;
 }
 
-it('WP session mixes fonts and commits cohesive art', () => {
+it.runIf(hasFonts)('WP session mixes fonts and commits cohesive art', () => {
   const big = loadFont('block');
   const small = loadFont('4maxcol');
   const caps: TerminalCaps = { cols: 80, rows: 24, utf8: false, mouse: true };
